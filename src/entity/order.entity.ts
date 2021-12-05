@@ -21,6 +21,9 @@ export class Order {
   id: number;
 
   @Column('float')
+  tax: number;
+
+  @Column('float')
   total: number;
 
   @Column({
@@ -29,9 +32,6 @@ export class Order {
     default: OrderStatus.DRAFT,
   })
   status: OrderStatus;
-
-  @Column('float')
-  tax: number;
 
   @CreateDateColumn()
   create_date: Date;

@@ -1,9 +1,12 @@
 import {
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Product } from './product.entity';
 import { Order } from './order.entity';
@@ -40,6 +43,15 @@ export class OrderLine {
     default: OrderLineStatus.READY,
   })
   status: OrderLineStatus;
+
+  @CreateDateColumn()
+  create_date: Date;
+
+  @UpdateDateColumn()
+  write_date: Date;
+
+  @DeleteDateColumn()
+  delete_date: Date;
 
   @ManyToOne(() => Product, (product) => product.order_line)
   @JoinColumn({ name: 'product_id' })

@@ -23,6 +23,9 @@ export class Product {
   @Column('float')
   price: number;
 
+  @Column()
+  image_path: string;
+
   @CreateDateColumn()
   create_date: Date;
 

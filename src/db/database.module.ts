@@ -20,10 +20,8 @@ import { Order } from '../entity/order.entity';
         autoLoadEntities: true,
       }),
     }),
-    TypeOrmModule.forFeature([Category, Product, Order, OrderLine]),
   ],
   controllers: [],
   providers: [],
-  exports: [TypeOrmModule],
 })
 export class DatabaseModule {}

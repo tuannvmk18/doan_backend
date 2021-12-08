@@ -23,7 +23,7 @@ export class Product {
   @Column('float')
   price: number;
 
-  @Column()
+  @Column({ nullable: true })
   image_path: string;
 
   @CreateDateColumn()

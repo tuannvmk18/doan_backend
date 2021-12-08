@@ -13,23 +13,28 @@ export class ProductService {
     this.productRepository = connection.getRepository(Product);
   }
 
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  async create(createProductDto: CreateProductDto) {
+    const newProduct = this.productRepository.create(createProductDto);
+    await this.productRepository.save(newProduct);
+    return newProduct;
   }
 
-  findAll() {
-    return `This action returns all product`;
+  async findAll(skip: number = undefined, take: number = undefined) {
+    return await this.productRepository.find({
+      skip,
+      take,
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: number) {
+    return await this.productRepository.findOne(id);
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: number, updateProductDto: UpdateProductDto) {
+    return await this.productRepository.update(id, updateProductDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number) {
+    return await this.productRepository.softDelete(id);
   }
 }

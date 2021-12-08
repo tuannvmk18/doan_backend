@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './common/middleware/logger.middlerware';
 import { DatabaseModule } from './db/database.module';
 import { ProductModule } from './shared/product/product.module';
+import { OrderModule } from './shared/order/order.module';
+import { CategoryModule } from './shared/category/category.module';
 import * as helmet from 'helmet';
 
 @Module({
@@ -14,6 +16,8 @@ import * as helmet from 'helmet';
     }),
     DatabaseModule,
     ProductModule,
+    OrderModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

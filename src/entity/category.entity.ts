@@ -26,6 +26,9 @@ export class Category {
   @DeleteDateColumn()
   delete_date: Date;
 
-  @OneToMany(() => Product, (product) => product.category_id)
+  @OneToMany(() => Product, (product) => product.category_id, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   public product_ids!: Product[];
 }

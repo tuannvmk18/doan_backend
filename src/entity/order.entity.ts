@@ -13,6 +13,7 @@ export enum OrderStatus {
   DRAFT = 'draft',
   DOING = 'doing',
   PAID = 'paid',
+  CANCELLED = 'cancelled'
 }
 
 @Entity()
@@ -44,6 +45,8 @@ export class Order {
 
   @OneToMany(() => OrderLine, (order_line) => order_line.order, {
     cascade: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   order_line!: OrderLine[];
 }

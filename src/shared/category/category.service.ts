@@ -8,12 +8,14 @@ import { Category } from '../../entity/category.entity';
 @Injectable()
 export class CategoryService {
   private categoryRepository: Repository<Category>;
+
   constructor(@InjectConnection() connection: Connection) {
     this.categoryRepository = connection.getRepository(Category);
   }
 
-  create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
+  async create(createCategoryDto: CreateCategoryDto) {
+    const newCategory = this.categoryRepository.create(createCategoryDto);
+    return await this.categoryRepository.save(newCategory);
   }
 
   async findAll(skip: number = undefined, take: number = undefined) {

@@ -13,23 +13,29 @@ export class OrderService {
     this.orderRepository = connection.getRepository(Order);
   }
 
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+  async create(createOrderDto: CreateOrderDto) {
+    const newOrder = this.orderRepository.create(createOrderDto);
+    return await this.orderRepository.save(newOrder);
   }
 
-  findAll() {
-    return `This action returns all order`;
+  async findAll(skip: number = undefined, take: number = undefined) {
+    return await this.orderRepository.find({
+      skip,
+      take,
+      // relations: ['order_line', 'order_line.product'],
+      relations: ['order_line'],
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOne(id: number) {
+    return await this.orderRepository.findOne(id);
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async update(id: number, updateOrderDto: UpdateOrderDto) {
+    return await this.orderRepository.update(id, updateOrderDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  async remove(id: number) {
+    return await this.orderRepository.softDelete(id);
   }
 }

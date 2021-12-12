@@ -13,7 +13,7 @@ export enum OrderStatus {
   DRAFT = 'draft',
   DOING = 'doing',
   PAID = 'paid',
-  CANCELLED = 'cancelled'
+  CANCELLED = 'cancelled',
 }
 
 @Entity()
@@ -43,10 +43,6 @@ export class Order {
   @DeleteDateColumn()
   delete_date: Date;
 
-  @OneToMany(() => OrderLine, (order_line) => order_line.order, {
-    cascade: true,
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  })
+  @OneToMany(() => OrderLine, (order_line) => order_line.order)
   order_line!: OrderLine[];
 }

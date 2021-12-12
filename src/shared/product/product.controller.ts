@@ -11,6 +11,7 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Roles } from 'nest-keycloak-connect';
 
 @Controller('product')
 export class ProductController {
@@ -22,6 +23,7 @@ export class ProductController {
   }
 
   @Get()
+  @Roles({ roles: ['thecoffeehouse:admin'] })
   findAll(@Query('skip') skip: number, @Query('take') take: number) {
     return this.productService.findAll(+skip, take);
   }

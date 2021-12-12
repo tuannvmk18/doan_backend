@@ -8,6 +8,10 @@ import { ProductModule } from './shared/product/product.module';
 import { OrderModule } from './shared/order/order.module';
 import { CategoryModule } from './shared/category/category.module';
 import * as helmet from 'helmet';
+import { AuthModule } from './auth/auth.module';
+import * as cookieParser from 'cookie-parser';
+import { ScheduleModule } from '@nestjs/schedule';
+import { CleanEmptyOrderLineCronJob } from './cronjob/clean_empty_orderline.cronjob';
 
 @Module({
   imports: [
@@ -15,15 +19,17 @@ import * as helmet from 'helmet';
       isGlobal: true,
     }),
     DatabaseModule,
+    ScheduleModule.forRoot(),
+    AuthModule,
     ProductModule,
     OrderModule,
     CategoryModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CleanEmptyOrderLineCronJob],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
-    consumer.apply(helmet(), LoggerMiddleware).forRoutes('*');
+    consumer.apply(helmet(), cookieParser(), LoggerMiddleware).forRoutes('*');
   }
 }

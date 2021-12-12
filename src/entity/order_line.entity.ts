@@ -27,7 +27,7 @@ export class OrderLine {
   @Column()
   product_id: number;
 
-  @Column()
+  @Column({ nullable: true })
   order_id: number;
 
   @Column()
@@ -60,8 +60,10 @@ export class OrderLine {
   product: Product;
 
   @ManyToOne(() => Order, (order) => order.order_line, {
+    cascade: true,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
+    nullable: true,
   })
   @JoinColumn({ name: 'order_id' })
   order: Order;

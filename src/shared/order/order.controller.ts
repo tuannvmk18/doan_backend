@@ -1,7 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { Public } from 'nest-keycloak-connect';
 
 @Controller('order')
 export class OrderController {
@@ -18,11 +27,13 @@ export class OrderController {
   }
 
   @Get(':id')
+  @Public()
   findOne(@Param('id') id: string) {
     return this.orderService.findOne(+id);
   }
 
   @Patch(':id')
+  @Public()
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     return this.orderService.update(+id, updateOrderDto);
   }
@@ -30,5 +41,11 @@ export class OrderController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.orderService.remove(+id);
+  }
+
+  @Post('/action_done/:id')
+  @Public()
+  actionDone(@Param('id') order_id) {
+    return this.orderService.actionDone(+order_id);
   }
 }

@@ -43,6 +43,8 @@ export class Order {
   @DeleteDateColumn()
   delete_date: Date;
 
-  @OneToMany(() => OrderLine, (order_line) => order_line.order)
+  @OneToMany(() => OrderLine, (order_line) => order_line.order, {
+    cascade: true,
+  })
   order_line!: OrderLine[];
 }

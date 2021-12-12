@@ -13,7 +13,7 @@ export class CleanEmptyOrderLineCronJob {
     this.queryBuilder = connection.createQueryBuilder();
   }
 
-  @Cron(CronExpression.EVERY_30_SECONDS)
+  @Cron(CronExpression.EVERY_DAY_AT_1AM)
   handleCron() {
     this.logger.log('[CronJob] Clean empty orderline');
     this.queryBuilder

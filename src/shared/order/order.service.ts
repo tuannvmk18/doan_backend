@@ -50,12 +50,12 @@ export class OrderService {
       relations: ['order_line'],
     });
 
-    switch (order.status) {
-      case OrderStatus.CANCELLED || OrderStatus.DRAFT:
-        return null;
-      case OrderStatus.PAID:
-        return order;
-    }
+    // switch (order.status) {
+    //   case OrderStatus.CANCELLED || OrderStatus.DRAFT:
+    //     return null;
+    //   case OrderStatus.PAID:
+    //     return order;
+    // }
 
     for (const order_line of order.order_line) {
       order_line.status = OrderLineStatus.DONE;

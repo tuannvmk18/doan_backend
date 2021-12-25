@@ -10,7 +10,6 @@ import { AuthService } from './auth.service';
 import { HttpModule } from '@nestjs/axios';
 import { AuthController } from './auth.controller';
 import { ConfigModule } from '@nestjs/config';
-import { KeycloakProvider } from './keycloak/keycloak.provider';
 
 @Module({
   imports: [

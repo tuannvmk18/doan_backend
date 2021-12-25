@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from 'nest-keycloak-connect';
 
@@ -13,7 +20,8 @@ export class AuthController {
       credential.username,
       credential.password,
     );
-    return jwtToken;
+    if (jwtToken) return jwtToken;
+    throw new BadRequestException();
   }
 
   @Get('')

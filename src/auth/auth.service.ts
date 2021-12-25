@@ -1,13 +1,22 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { lastValueFrom } from 'rxjs';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private configService: ConfigService,
+  ) {
+    this.originUrl = this.configService.get<string>('KEYCLOAD_URL');
+  }
+
+  private originUrl: string;
 
   async getAccessToken(username: string, password: string): Promise<any> {
-    const url = `http://localhost:8080/auth/realms/authservice/protocol/openid-connect/token`;
+    const url =
+      this.originUrl + `/auth/realms/authservice/protocol/openid-connect/token`;
     const formData: URLSearchParams = new URLSearchParams();
     formData.append('username', username);
     formData.append('password', password);
@@ -24,13 +33,14 @@ export class AuthService {
       );
       return response.data;
     } catch (e) {
-      console.log(e);
       return null;
     }
   }
 
   async getUserInfo(accessToken: string): Promise<any> {
-    const url = `http://localhost:8080/auth/realms/authservice/protocol/openid-connect/userinfo`;
+    const url =
+      this.originUrl +
+      `/auth/realms/authservice/protocol/openid-connect/userinfo`;
     try {
       const response = await lastValueFrom(
         this.httpService.get(url, {

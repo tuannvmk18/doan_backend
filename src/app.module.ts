@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import * as cookieParser from 'cookie-parser';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CleanEmptyOrderLineCronJob } from './cronjob/clean_empty_orderline.cronjob';
+import { UploadModule } from './shared/upload/upload.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { CleanEmptyOrderLineCronJob } from './cronjob/clean_empty_orderline.cron
     DatabaseModule,
     ScheduleModule.forRoot(),
     AuthModule,
+    UploadModule,
     ProductModule,
     OrderModule,
     CategoryModule,

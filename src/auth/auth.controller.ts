@@ -20,8 +20,7 @@ export class AuthController {
       credential.username,
       credential.password,
     );
-    if (jwtToken) return jwtToken;
-    throw new BadRequestException();
+    return jwtToken;
   }
 
   @Get('')

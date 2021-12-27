@@ -16,15 +16,15 @@ import { Public } from 'nest-keycloak-connect';
 
 @Controller('upload')
 export class UploadController {
-  @Post('file')
-  @UseInterceptors(FileInterceptor('avatar'))
+  @Post('')
+  @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     return {
       file_name: file.filename,
     };
   }
 
-  @Get('file/:filename')
+  @Get(':filename')
   @Public()
   getFile(@Param('filename') filename, @Res() res) {
     const filePath = join(process.cwd(), 'upload/' + filename);

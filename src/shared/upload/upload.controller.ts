@@ -1,26 +1,26 @@
 import {
   Controller,
   Get,
-  Header,
   Param,
   Post,
+  Req,
   Res,
-  StreamableFile,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { createReadStream, createWriteStream } from 'fs';
 import { join } from 'path';
 import { Public } from 'nest-keycloak-connect';
+import * as os from 'os';
 
 @Controller('upload')
 export class UploadController {
   @Post('')
   @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
+  uploadFile(@UploadedFile() file: Express.Multer.File, @Req() req) {
     return {
       file_name: file.filename,
+      file_url: req.headers.host + `/upload/${file.filename}`,
     };
   }
 

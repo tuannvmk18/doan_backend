@@ -17,7 +17,6 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post()
-  @Public()
   create(@Body() createOrderDto: CreateOrderDto) {
     return this.orderService.create(createOrderDto);
   }
@@ -43,7 +42,6 @@ export class OrderController {
   }
 
   @Post('/action_done/:id')
-  @Public()
   actionDone(@Param('id') order_id) {
     return this.orderService.actionDone(+order_id);
   }

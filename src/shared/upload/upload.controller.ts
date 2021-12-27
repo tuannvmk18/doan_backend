@@ -10,24 +10,24 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { createReadStream } from 'fs';
+import { createReadStream, createWriteStream } from 'fs';
 import { join } from 'path';
 import { Public } from 'nest-keycloak-connect';
 
 @Controller('upload')
 export class UploadController {
   @Post('file')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('avatar'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     return {
-      filename: file.filename,
+      file_name: file.filename,
     };
   }
 
   @Get('file/:filename')
   @Public()
-  getFile(@Param('filename') filename): StreamableFile {
-    const file = createReadStream(join(process.cwd(), 'upload/' + filename));
-    return new StreamableFile(file);
+  getFile(@Param('filename') filename, @Res() res) {
+    const filePath = join(process.cwd(), 'upload/' + filename);
+    return res.download(filePath);
   }
 }

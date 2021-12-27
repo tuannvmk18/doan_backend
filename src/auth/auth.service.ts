@@ -9,22 +9,22 @@ export class AuthService {
     private httpService: HttpService,
     private configService: ConfigService,
   ) {
-    this.originUrl = this.configService.get<string>('KEYCLOAD_URL');
-    this.originRealm = this.configService.get<string>('KEYCLOAD_REALM');
+    this.originUrl = this.configService.get<string>('KEYCLOAK_URL');
+    this.originRealm = this.configService.get<string>('KEYCLOAK_REALM');
   }
 
   private originUrl: string;
   private originRealm: string;
 
   async getAccessToken(username: string, password: string): Promise<any> {
-    const url = `${this.originUrl}/auth/realms/${this.originRealm}/protocol/openid-connect/token`;
+    const url = `${this.originUrl}/realms/${this.originRealm}/protocol/openid-connect/token`;
     const formData: URLSearchParams = new URLSearchParams();
     formData.append('username', username);
     formData.append('password', password);
     formData.append('grant_type', 'password');
     formData.append(
       'client_secret',
-      this.configService.get<string>('KEYCLOAD_CLIENT_SECERT'),
+      this.configService.get<string>('KEYCLOAK_CLIENT_SECERT'),
     );
     formData.append(
       'client_id',
@@ -40,12 +40,12 @@ export class AuthService {
       );
       return response.data;
     } catch (e) {
-      return null;
+      return e;
     }
   }
 
   async getUserInfo(accessToken: string): Promise<any> {
-    const url = `${this.originUrl}/auth/realms/${this.originRealm}/protocol/openid-connect/userinfo`;
+    const url = `${this.originUrl}/realms/${this.originRealm}/protocol/openid-connect/userinfo`;
     try {
       const response = await lastValueFrom(
         this.httpService.get(url, {
@@ -56,8 +56,7 @@ export class AuthService {
       );
       return response.data;
     } catch (e) {
-      console.log(e);
-      throw new UnauthorizedException();
+      return e;
     }
   }
 }

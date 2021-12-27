@@ -14,13 +14,15 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule,
-    KeycloakConnectModule.register({
-      authServerUrl: 'http://localhost:8080/auth',
-      realm: 'authservice',
-      clientId: 'Thecoffeehouse',
-      secret: 'z2t6TuLNjnmF99SGQt0eXmRhzJrctBQY',
-      cookieKey: 'JWT',
-      tokenValidation: TokenValidation.OFFLINE,
+    KeycloakConnectModule.registerAsync({
+      useFactory: () => ({
+        authServerUrl: process.env.KEYCLOAK_URL,
+        realm: process.env.KEYCLOAK_REALM,
+        clientId: process.env.KEYCLOAK_CLIENT_ID,
+        secret: process.env.KEYCLOAK_CLIENT_SECERT,
+        cookieKey: 'JWT',
+        tokenValidation: TokenValidation.OFFLINE,
+      }),
     }),
     HttpModule,
   ],

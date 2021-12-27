@@ -24,7 +24,7 @@ export class AuthService {
     formData.append('grant_type', 'password');
     formData.append(
       'client_secret',
-      this.configService.get<string>('KEYCLOAK_CLIENT_SECERT'),
+      this.configService.get<string>('KEYCLOAK_CLIENT_SECRET'),
     );
     formData.append(
       'client_id',

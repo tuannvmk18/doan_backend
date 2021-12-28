@@ -17,6 +17,9 @@ export class Category {
   @Column()
   name: string;
 
+  @Column()
+  path: string;
+
   @CreateDateColumn()
   create_date: Date;
 

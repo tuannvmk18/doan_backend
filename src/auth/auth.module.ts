@@ -20,7 +20,6 @@ import { ConfigModule } from '@nestjs/config';
         realm: process.env.KEYCLOAK_REALM,
         clientId: process.env.KEYCLOAK_CLIENT_ID,
         secret: process.env.KEYCLOAK_CLIENT_SECRET,
-        cookieKey: 'JWT',
         tokenValidation: TokenValidation.OFFLINE,
       }),
     }),

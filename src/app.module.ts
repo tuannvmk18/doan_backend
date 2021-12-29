@@ -11,7 +11,6 @@ import * as helmet from 'helmet';
 import { AuthModule } from './auth/auth.module';
 import * as cookieParser from 'cookie-parser';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CleanEmptyOrderLineCronJob } from './cronjob/clean_empty_orderline.cronjob';
 import { UploadModule } from './shared/upload/upload.module';
 import { TableModule } from './shared/table/table.module';
 
@@ -30,7 +29,7 @@ import { TableModule } from './shared/table/table.module';
     TableModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CleanEmptyOrderLineCronJob],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {

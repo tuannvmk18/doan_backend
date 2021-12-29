@@ -1,5 +1,6 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
-import { CategoryDto } from '../../../entity/dto/category.dto';
+import { CategoryDto } from '../../../../dist/entity/dto/category.dto';
+
 export class CreateProductDto {
   @IsString()
   name: string;

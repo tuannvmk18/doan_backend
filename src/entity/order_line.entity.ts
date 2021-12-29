@@ -1,4 +1,6 @@
 import {
+  AfterInsert,
+  AfterUpdate,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -9,8 +11,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Product } from './product.entity';
-import { Order } from './order.entity';
-import { Exclude } from 'class-transformer';
+import { Order, OrderStatus } from './order.entity';
 
 export enum OrderLineStatus {
   READY = 'ready',
@@ -36,15 +37,15 @@ export class OrderLine {
   @Column('float')
   price: number;
 
-  @Column('float')
+  @Column('float', { nullable: true })
   amount: number;
 
-  @Column({
-    type: 'enum',
-    enum: OrderLineStatus,
-    default: OrderLineStatus.READY,
-  })
-  status: OrderLineStatus;
+  // @Column({
+  //   type: 'enum',
+  //   enum: OrderLineStatus,
+  //   default: OrderLineStatus.READY,
+  // })
+  // status: OrderLineStatus;
 
   @CreateDateColumn()
   create_date: Date;
@@ -52,14 +53,19 @@ export class OrderLine {
   @UpdateDateColumn()
   write_date: Date;
 
-  @DeleteDateColumn()
-  delete_date: Date;
-
   @ManyToOne(() => Product, (product) => product.order_line)
   @JoinColumn({ name: 'product_id' })
   product: Product;
 
-  @ManyToOne(() => Order, (order) => order.order_line)
+  @ManyToOne(() => Order, (order) => order.order_line, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'order_id' })
   order: Order;
+
+  @AfterUpdate()
+  @AfterInsert()
+  updateAmount() {
+    this.amount = this.price * this.quantity;
+  }
 }

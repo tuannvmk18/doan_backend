@@ -4,22 +4,18 @@ import { Product } from '../entity/product.entity';
 import { Category } from '../entity/category.entity';
 import { OrderLine } from '../entity/order_line.entity';
 import { Order } from '../entity/order.entity';
+import { Table } from '../entity/table.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',
-        // host: process.env.DB_HOST,
-        // port: parseInt(process.env.DB_PORT, 10),
-        // username: process.env.DB_USER,
-        // password: process.env.DB_PASSWORD,
-        // database: process.env.DB_NAME,
         url: process.env.DB_URL,
         ssl: {
           rejectUnauthorized: false,
         },
-        entities: [Category, Product, Order, OrderLine],
+        entities: [Category, Product, Order, OrderLine, Table],
         synchronize: true,
         autoLoadEntities: true,
       }),

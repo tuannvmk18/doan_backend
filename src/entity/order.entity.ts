@@ -1,4 +1,8 @@
 import {
+  AfterInsert,
+  AfterLoad,
+  AfterUpdate,
+  BeforeInsert,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -24,7 +28,7 @@ export class Order {
   @Column('float')
   tax: number;
 
-  @Column('float')
+  @Column('float', { nullable: true })
   total: number;
 
   @Column({
@@ -34,17 +38,18 @@ export class Order {
   })
   status: OrderStatus;
 
+  @Column({ type: 'integer' })
+  table_id: number;
+
   @CreateDateColumn()
   create_date: Date;
 
   @UpdateDateColumn()
   write_date: Date;
 
-  @DeleteDateColumn()
-  delete_date: Date;
-
   @OneToMany(() => OrderLine, (order_line) => order_line.order, {
     cascade: true,
+    onDelete: 'CASCADE',
   })
   order_line!: OrderLine[];
 }

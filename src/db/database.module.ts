@@ -5,6 +5,7 @@ import { Category } from '../entity/category.entity';
 import { OrderLine } from '../entity/order_line.entity';
 import { Order } from '../entity/order.entity';
 import { Table } from '../entity/table.entity';
+import { User } from '../entity/user.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { Table } from '../entity/table.entity';
         ssl: {
           rejectUnauthorized: false,
         },
-        entities: [Category, Product, Order, OrderLine, Table],
+        entities: [Category, Product, Order, OrderLine, Table, User],
         synchronize: true,
         autoLoadEntities: true,
       }),

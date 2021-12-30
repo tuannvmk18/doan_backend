@@ -13,12 +13,15 @@ import * as cookieParser from 'cookie-parser';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UploadModule } from './shared/upload/upload.module';
 import { TableModule } from './shared/table/table.module';
+import { UserModule } from './shared/user/user.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    EventEmitterModule.forRoot(),
     DatabaseModule,
     ScheduleModule.forRoot(),
     AuthModule,
@@ -27,6 +30,7 @@ import { TableModule } from './shared/table/table.module';
     OrderModule,
     CategoryModule,
     TableModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

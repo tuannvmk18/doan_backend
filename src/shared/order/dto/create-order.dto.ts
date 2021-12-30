@@ -1,5 +1,11 @@
 import { OrderStatus } from '../../../entity/order.entity';
-import { IsEnum, IsInt, IsNumber, ValidateNested } from 'class-validator';
+import {
+  IsEnum,
+  IsInt,
+  IsNumber,
+  IsOptional,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateOrderLineDto {
@@ -16,6 +22,7 @@ export class CreateOrderDto {
   order_line: CreateOrderLineDto[];
 
   @IsEnum(OrderStatus)
+  @IsOptional()
   status: OrderStatus;
 
   @IsNumber()

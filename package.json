@@ -36,6 +36,7 @@
     "csurf": "^1.11.0",
     "helmet": "^4.6.0",
     "keycloak-connect": "^15.1.0",
+    "multer": "^1.4.4",
     "nest-keycloak-connect": "^1.7.6",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",

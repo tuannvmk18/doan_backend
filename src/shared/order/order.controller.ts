@@ -10,7 +10,6 @@ import {
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { Public } from 'nest-keycloak-connect';
 
 @Controller('order')
 export class OrderController {

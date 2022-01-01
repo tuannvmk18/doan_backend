@@ -90,6 +90,12 @@ export class OrderService {
       await this.updateTableStatus(order.table_id, TableStatus.ONLINE);
     }
 
+    let tmpTotal = 0;
+    for (const order_line of updateOrder.order_line) {
+      tmpTotal += order_line.quantity * order_line.price;
+    }
+    updateOrder.total = tmpTotal;
+
     return await this.orderRepository.save(updateOrderDto);
   }
 

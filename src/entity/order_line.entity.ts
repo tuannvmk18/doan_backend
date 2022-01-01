@@ -1,6 +1,7 @@
 import {
   AfterInsert,
   AfterUpdate,
+  BaseEntity,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -21,7 +22,7 @@ export enum OrderLineStatus {
 }
 
 @Entity()
-export class OrderLine {
+export class OrderLine extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -63,9 +64,10 @@ export class OrderLine {
   @JoinColumn({ name: 'order_id' })
   order: Order;
 
-  @AfterUpdate()
   @AfterInsert()
+  @AfterUpdate()
   updateAmount() {
     this.amount = this.price * this.quantity;
+    this.save();
   }
 }

@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/f7b943e9-96c8-43b1-a294-b75c04d56a73/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/doan-backend",
+    "appService.deploySubpath": "."
+}

@@ -1,17 +1,16 @@
+import { type } from 'os';
 import {
-  AfterInsert,
-  AfterLoad,
-  AfterUpdate,
-  BeforeInsert,
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { OrderLine } from './order_line.entity';
+import { Table } from './table.entity';
 
 export enum OrderStatus {
   DRAFT = 'draft',
@@ -40,6 +39,10 @@ export class Order {
 
   @Column({ type: 'integer' })
   table_id: number;
+
+  @ManyToOne((type) => Table)
+  @JoinColumn({ name: 'table_id' })
+  table: Table;
 
   @CreateDateColumn()
   create_date: Date;

@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
+import { Public } from 'nest-keycloak-connect';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -22,11 +23,13 @@ export class CategoryController {
   }
 
   @Get()
+  @Public()
   findAll(@Query('skip') skip: number, @Query('take') take: number) {
     return this.categoryService.findAll(+skip, +take);
   }
 
   @Get(':id')
+  @Public()
   findOne(@Param('id') id: string) {
     return this.categoryService.findOne(+id);
   }

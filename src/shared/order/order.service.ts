@@ -29,7 +29,7 @@ export class OrderService {
     for (const order_line of newOrder.order_line) {
       tmpTotal += order_line.quantity * order_line.price;
     }
-    newOrder.total = (tmpTotal * newOrder.tax) / 100;
+    newOrder.total = tmpTotal - tmpTotal * (newOrder.tax / 100);
 
     return await this.orderRepository.save(newOrder);
   }
@@ -94,7 +94,7 @@ export class OrderService {
     for (const order_line of updateOrder.order_line) {
       tmpTotal += order_line.quantity * order_line.price;
     }
-    updateOrder.total = tmpTotal;
+    updateOrder.total = tmpTotal - tmpTotal * (updateOrder.tax / 100);
 
     return await this.orderRepository.save(updateOrderDto);
   }
